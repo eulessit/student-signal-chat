@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+
+    protected $redirectTo = '/';
     public function login(Request $request)
     {
+        
         if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
             $data['token'] = $user->createToken(env('APP_NAME'))->accessToken;
@@ -23,7 +28,7 @@ class LoginController extends Controller
     {
         if (Auth()->check()) {
             $request->user()->token()->revoke();
-            return response()->json(['success' => 'Logged out successfuly']);
+            return response()->json(['success' => ' Logged out successfuly']);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }

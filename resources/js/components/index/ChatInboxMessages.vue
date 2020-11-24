@@ -29,9 +29,9 @@ export default {
     created() {
         if (this.loggedIn) {
             this.getMessages();
-            setTimeout(() => {
+            setInterval(() => {
                 this.getMessages();
-            }, 5000);
+            }, 1000);
         }
     }
 };

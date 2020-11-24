@@ -17,6 +17,9 @@ class MessageController extends Controller
         $sender = Auth::user();
         $messages = $messages->map(function ($message) use ($sender) {
             $message->sender = $sender->id === $message->user_id;
+            try {
+                $message->content = decrypt($message->content);
+            } catch(\Exception $e) {}
             return $message;
         });
 
@@ -43,10 +46,14 @@ class MessageController extends Controller
         $message = Message::create([
             'user_id' => $sender->id,
             'conversation_id' => $conversation->id,
-            'content' => $request->get('content')
+            'content' => encrypt($request->get('content'))
         ]);
 
         $message->sender = true;
+
+        try {
+            $message->content = $request->get('content');
+        } catch(\Exception $e) {}
 
         return response()->json([
             'status' => 'success',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessageSent;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\User;
@@ -17,9 +18,6 @@ class MessageController extends Controller
         $sender = Auth::user();
         $messages = $messages->map(function ($message) use ($sender) {
             $message->sender = $sender->id === $message->user_id;
-            try {
-                $message->content = decrypt($message->content);
-            } catch(\Exception $e) {}
             return $message;
         });
 
@@ -46,14 +44,12 @@ class MessageController extends Controller
         $message = Message::create([
             'user_id' => $sender->id,
             'conversation_id' => $conversation->id,
-            'content' => encrypt($request->get('content'))
+            'content' => $request->get('content')
         ]);
 
         $message->sender = true;
 
-        try {
-            $message->content = $request->get('content');
-        } catch(\Exception $e) {}
+        event(new NewMessageSent($receiver, $message));
 
         return response()->json([
             'status' => 'success',

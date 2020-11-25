@@ -7,7 +7,7 @@
         <div class="flex-grow-1 ml-2">
             <div class="d-flex justify-content-between">
                 <h3 v-text="participant.name"></h3>
-                <span>10:34 AM</span>
+                <span>07:34 PM</span>
             </div>
             <div class="recent-message">Hello there!</div>
         </div>

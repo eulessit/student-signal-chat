@@ -21,5 +21,6 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
-.idea/*
-public/js/app.js
+*.DS_Store
+.DS_Store
+.idea/

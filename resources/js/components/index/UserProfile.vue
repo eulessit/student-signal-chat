@@ -1,5 +1,5 @@
 <template>
-    <div class="user-profile">
+    <div v-if="currentUser" class="user-profile">
         <b-avatar src="https://placekitten.com/300/300" size="3rem"></b-avatar>
         <div class="ml-3">
             <h3 v-text="currentUser.name"></h3>

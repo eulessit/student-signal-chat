@@ -5,6 +5,9 @@ import store from "./store";
 import router from "./router";
 import App from "./components/App.vue";
 
+import VueToastr from 'vue-toastr'
+Vue.use(VueToastr);
+
 import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);

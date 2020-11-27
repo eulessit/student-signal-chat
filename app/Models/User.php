@@ -42,4 +42,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    public function joined_groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_users');
+    }
+
+    public function private_messages()
+    {
+        return $this->hasMany(PrivateMessage::class);
+    }
 }

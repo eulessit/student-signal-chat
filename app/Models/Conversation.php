@@ -21,8 +21,8 @@ class Conversation extends Model
         return $this->belongsTo(User::class, 'receiver_id');
     }
 
-    public function messages()
+    public function private_messages()
     {
-        return $this->hasMany(Message::class);
+        return $this->hasMany(PrivateMessage::class);
     }
 }

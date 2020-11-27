@@ -17,5 +17,6 @@ export default {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    overflow-y: hidden;
 }
 </style>

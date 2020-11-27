@@ -1,11 +1,13 @@
 const state = {
     user: null,
-    loggedIn: false
+    loggedIn: false,
+    activeChatType: 'conversation'
 };
 
 const getters = {
     loggedIn: state => state.loggedIn,
-    currentUser: state => state.user
+    currentUser: state => state.user,
+    activeChatType: state => state.activeChatType,
 };
 
 const actions = {
@@ -49,7 +51,11 @@ const actions = {
                     commit("setLoggedIn", true);
                     resolve(res);
                 })
-                .catch(err => reject(err));
+                .catch(err => {
+                    localStorage.removeItem("api_token");
+                    window.location.reload();
+                    reject(err)
+                });
         });
     }
 };
@@ -60,6 +66,9 @@ const mutations = {
     },
     setLoggedIn(state, loggedIn) {
         state.loggedIn = loggedIn;
+    },
+    setActiveChatType(state, activeChatType) {
+        state.activeChatType = activeChatType;
     }
 };
 

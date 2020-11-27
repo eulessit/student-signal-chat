@@ -2,8 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Message;
-use App\Models\User;
+use App\Models\Conversation;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -16,17 +15,17 @@ class NewMessageSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $user;
     public $message;
+    public $conversation;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, Message $message)
+    public function __construct(Conversation $conversation, $message)
     {
-        $this->user = $user;
+        $this->conversation = $conversation;
         $this->message = $message;
     }
 
@@ -37,7 +36,7 @@ class NewMessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('chat.' . $this->user->id);
+        return new Channel('chat.' . $this->conversation->id);
     }
 
     /**
